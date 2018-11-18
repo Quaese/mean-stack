@@ -1,7 +1,8 @@
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+// create new mongoose Schema
 let Issue = new Schema({
     title: {
         type: String
@@ -12,7 +13,7 @@ let Issue = new Schema({
     description: {
         type: String
     },
-    serverity: {
+    severity: {
         type: String
     },
     status:{
@@ -21,4 +22,5 @@ let Issue = new Schema({
     }
 });
 
+// export mongoose model
 export default mongoose.model('Issue', Issue);

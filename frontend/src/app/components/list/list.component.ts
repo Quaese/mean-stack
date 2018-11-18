@@ -1,3 +1,9 @@
+/*
+ * Component to list all issues in a table (angualar/material).
+ *
+ * frontend/src/app/components/list/list.component.ts
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
@@ -14,12 +20,16 @@ export class ListComponent implements OnInit {
   issues: Issue[];
   displayedColumns = ['title', 'responsible', 'severity', 'status', 'actions'];
 
-  constructor(private issueService: IssueService, private router: Router) { }
+  constructor(private issueService: IssueService, private router: Router) {}
 
   ngOnInit() {
+    // fetch all issues on init
     this.fetchIssues();
   }
 
+  /*
+   * Fetch all issues using the issueService.
+   */
   fetchIssues() {
     this.issueService
       .getIssues()
@@ -30,10 +40,16 @@ export class ListComponent implements OnInit {
       });
   }
 
+  /*
+   * Event handler => redirect/navigates to EditComponent.
+   */
   editIssue(id) {
     this.router.navigate([`/edit/${id}`]);
   }
 
+  /*
+   * Delete an issue using the issueService.
+   */
   deleteIssue(id) {
     this.issueService
       .deleteIssue(id)

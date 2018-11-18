@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+
+// Issue = mongoose Schema
 import Issue from './models/Issue';
 
 const app = express();
@@ -10,10 +12,11 @@ const router = express.Router();
 app.use(cors());
 app.use(bodyParser.json());
 
+// mongodb wrapper
 mongoose.connect('mongodb://localhost:27017/Issues');
 // mongoose.connect('mongodb://127.0.0.1:27017/issues');
-// mongoose.connect('mongodb://[server]/issues');
 
+// establish database connection
 const connection = mongoose.connection;
 
 connection.once('open', () => {
@@ -23,12 +26,12 @@ connection.once('open', () => {
 // START: Routes
 // all issues
 router.route('/issues').get((req, res) => {
-    // console.log('/issues');
+    // find all issues
     Issue.find((err, issues) => {
         if (err) {
             console.log(err);
         } else {
-            // console.log('issues: ', issues);
+            // respond with json object containing all issues
             res.json(issues);
         }
     })
@@ -47,6 +50,7 @@ router.route('/issues/:id').get((req, res) => {
 
 // add new issue
 router.route('/issues/add').post((req, res) => {
+    // create new Issue Schema for mongoose
     let issue = new Issue(req.body);
 
     issue.save()
@@ -60,10 +64,12 @@ router.route('/issues/add').post((req, res) => {
 
 // update issue
 router.route('/issues/update/:id').post((req, res) => {
+    // get issue by id
     Issue.findById(req.params.id, (err, issue) => {
-        if (!issue) {
+        if (!issue) { // no issue found
             return next(new Error('Could not load Document'));
         } else {
+            // issue found => update with data from body
             issue.title = req.body.title;
             issue.resposible = req.body.resposible;
             issue.description = req.body.description;
@@ -71,6 +77,7 @@ router.route('/issues/update/:id').post((req, res) => {
             issue.status = req.body.status;
         }
 
+        // execute save method from mongoose to save changes in database
         issue.save()
             .then(issue => {
                 res.json('Update done');
@@ -82,7 +89,7 @@ router.route('/issues/update/:id').post((req, res) => {
 });
 
 // delete issue
-router.route('/issues/delete/:id').post((req, res) => {
+router.route('/issues/delete/:id').get((req, res) => {
     Issue.findByIdAndRemove({_id: req.params.id}, (err, issue) => {
         if (err) {
             res.json(err);

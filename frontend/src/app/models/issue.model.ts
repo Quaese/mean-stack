@@ -1,3 +1,6 @@
+// Models
+
+// Issue interface
 export interface Issue {
   id: string;
   title: string;
