@@ -17,6 +17,8 @@ import {
   MatSnackBarModule
 } from '@angular/material';
 
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+
 import { AppRoutingModule } from './app-routing.module';
 import { IssueService } from './issue.service';
 
@@ -38,6 +40,7 @@ import { EditComponent } from './components/edit/edit.component';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    StoreDevtoolsModule.instrument(),
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
