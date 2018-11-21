@@ -1,3 +1,4 @@
+import { AddOptionComponent } from './components/add-option/add-option.component';
 import { ListComponent } from './components/list/list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,6 +9,7 @@ const routes: Routes = [
   {path: 'create', component: CreateComponent},
   {path: 'edit/:id', component: EditComponent},
   {path: 'list', component: ListComponent},
+  {path: 'addoptions', component: AddOptionComponent},
   {path: '', redirectTo: '/list', pathMatch: 'full'}
 ];
 
