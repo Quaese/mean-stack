@@ -3,7 +3,7 @@ import { Actions, SEVERITY_ADD } from './../actions/issue.actions';
 
 // initialer State
 export const initialState: IssueState = {
-  severity: ['Low', 'Medium', 'High']
+  severity: ['Low', 'Medium', 'High', 'Higher...']
 };
 
 export function reducer(state: IssueState = initialState, action: Actions): IssueState  {

@@ -1,15 +1,19 @@
 /*
- * Component to edit/update an issues.
- *
- * frontend/src/app/components/edit/edit.component.ts
- */
+* Component to edit/update an issues.
+*
+* frontend/src/app/components/edit/edit.component.ts
+*/
 
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
+import { Observable } from 'rxjs';
+
+import { StoreService } from './../../store/store.service';
 import { IssueService } from 'src/app/issue.service';
+import { IssueState } from 'src/app/models/store.model';
 
 @Component({
   selector: 'app-edit',
@@ -21,13 +25,32 @@ export class EditComponent implements OnInit {
   issue: any = {};
   updateForm: FormGroup;
 
+  // store observables
+  private severities$: Observable<Array<string>>;
+  private store$: Observable<IssueState>;
+
+  // scalar dates (gets updated in subscribe)
+  private severities: Array<string>;
+
   constructor(
+    private storeService: StoreService,
     private issueService: IssueService,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private builder: FormBuilder
   ) {
+    // get store observable
+    this.store$ = this.storeService.getStore$();
+    // subscribe to store observable to get severities
+    this.store$.subscribe(store => {
+      // console.log("subscribe store: ", this.severities);
+      this.severities = store.severity;
+    });
+
+    // subscribe to serverities observable
+    this.severities$ = this.storeService.getSeverity$();
+
     // create form group before ngOnInit fires
     this.createForm();
   }

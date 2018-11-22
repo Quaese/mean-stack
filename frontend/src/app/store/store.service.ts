@@ -9,12 +9,18 @@ import { Observable } from 'rxjs';
 })
 export class StoreService {
   private store$: Observable<IssueState>;
+  private severity$: Observable<Array<string>>;
 
   constructor(private store: Store<AppState>) {
     this.store$ = store.select(val => val.store);
+    this.severity$ = store.select(val => val.store.severity);
   }
 
-  getStore() {
+  getStore$() {
     return this.store$;
+  }
+
+  getSeverity$() {
+    return this.severity$;
   }
 }
