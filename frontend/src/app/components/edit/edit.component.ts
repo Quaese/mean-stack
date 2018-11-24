@@ -27,7 +27,7 @@ export class EditComponent implements OnInit {
 
   // store observables
   private severities$: Observable<Array<string>>;
-  private store$: Observable<IssueState>;
+  private issueState$: Observable<IssueState>;
 
   // scalar dates (gets updated in subscribe)
   private severities: Array<string>;
@@ -41,11 +41,11 @@ export class EditComponent implements OnInit {
     private builder: FormBuilder
   ) {
     // get store observable
-    this.store$ = this.storeService.getStore$();
+    this.issueState$ = this.storeService.getIssueState$();
     // subscribe to store observable to get severities
-    this.store$.subscribe(store => {
+    this.issueState$.subscribe(issueState => {
       // console.log("subscribe store: ", this.severities);
-      this.severities = store.severity;
+      this.severities = issueState.severity;
     });
 
     // subscribe to serverities observable

@@ -23,7 +23,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { IssueService } from './issue.service';
-import { reducer } from './store/reducers/issue.reducer';
+import { reducers } from './store/reducers';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './components/list/list.component';
@@ -45,9 +45,7 @@ import { AddOptionComponent } from './components/add-option/add-option.component
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({
-      store: reducer
-    }),
+    StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
     MatToolbarModule,
     MatFormFieldModule,

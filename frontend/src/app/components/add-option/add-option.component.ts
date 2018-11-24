@@ -12,7 +12,7 @@ export class AddOptionComponent implements OnInit {
   constructor(private storeService: StoreService) { }
 
   ngOnInit() {
-    this.storeService.getStore$().subscribe(store => console.log("store", store));
+    this.storeService.getIssueState$().subscribe(store => console.log("store", store));
   }
 
 }

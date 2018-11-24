@@ -1,23 +1,23 @@
 import { IssueState } from './../models/store.model';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../models/store.model';
 import { Observable } from 'rxjs';
+import { State } from './reducers/index';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-  private store$: Observable<IssueState>;
+  private issueState$: Observable<IssueState>;
   private severity$: Observable<Array<string>>;
 
-  constructor(private store: Store<AppState>) {
-    this.store$ = store.select(val => val.store);
-    this.severity$ = store.select(val => val.store.severity);
+  constructor(private store: Store<State>) {
+    this.issueState$ = store.select(val => val.issueState);
+    this.severity$ = store.select(val => val.issueState.severity);
   }
 
-  getStore$() {
-    return this.store$;
+  getIssueState$() {
+    return this.issueState$;
   }
 
   getSeverity$() {
