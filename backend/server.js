@@ -3,6 +3,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
+// config
+import config from './config/config';
+
 // Issue = mongoose Schema
 import Issue from './models/Issue';
 
@@ -13,8 +16,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // mongodb wrapper
-mongoose.connect('mongodb://localhost:27017/Issues');
-// mongoose.connect('mongodb://127.0.0.1:27017/issues');
+mongoose.connect('mongodb://localhost:27017/Issues');                                                                  // localhost
+// mongoose.connect(`mongodb://${config.mongodb.user}:${config.mongodb.pw}@localhost:30759/Issues?authSource=admin`);  // uberspace
 
 // establish database connection
 const connection = mongoose.connection;

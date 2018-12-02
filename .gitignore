@@ -50,7 +50,8 @@
 # BACKEND
 # dependencies
 /backend/node_modules
+/backend/config
 
-# System Filescd 
+# System Filescd
 .DS_Store
 Thumbs.db
